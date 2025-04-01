@@ -1,0 +1,185 @@
+openapi: 3.0.2
+servers:
+  - url: https://tresorpay.ml/api/public/v1
+info:
+  description: |-
+    This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about
+    Swagger at [http://swagger.io](http://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!
+    You can now help us improve the API whether it's by making changes to the definition itself or to the code.
+    That way, with time, we can improve the API in general, and expose some of the new features in OAS3.
+
+    Some useful links:
+    - [The Pet Store repository](https://github.com/swagger-api/swagger-petstore)
+    - [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)
+  version: 1
+  title: Swagger Petstore - OpenAPI 3.0
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: Create
+    description: Everything about your Pets
+    externalDocs:
+      description: Find out more
+      url: 'http://swagger.io'
+  - name: store
+    description: Access to Petstore orders
+    externalDocs:
+      description: Find out more about our store
+      url: 'http://swagger.io'
+  - name: user
+    description: Operations about user
+paths:
+  /payment/create-notice-recette:
+    post:
+      tags:
+        - pet
+      summary: Summary
+      description: "Ajouter une description pour cette requête"
+      operationId: addPet
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseNoticeRecette'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404NoticeRecette'
+        '500':
+          description: Erreur interne du serveur
+      security:
+        - petstore_auth:
+            - 'write:pets'
+            - 'read:pets'
+      requestBody:
+        description: Create a new pet in the store
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestNoticeRecette'
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
+components:
+  schemas:
+    RequestNoticeRecette:
+      x-swagger-router-model: io.swagger.noticercette.model.RequestNoticeRecette
+      properties:
+        reference:
+          type: string
+          description: La reference de l'avis de recette
+          example: 001
+        codeClient:
+          type: string
+          description: Le code de l'inscription de votre application auprès de TRESORPAY
+          example: SIDOLO
+        codeStructure:
+          type: string
+          description: Le code de l'inscription de votre structure auprès de TRESORPAY
+          example: DGT
+        callback:
+          type: string
+          description: Url qui sera appélé une fois le paiement de l'avis de recette effectué
+          example:
+        redirectUrl:
+          type: string
+          description: Url qui sera appélé une fois le paiement de l'avis de recette effectué pour redirigé Usager
+          example:
+        netTotal:
+          type: string
+          description: le montant total de tous les items
+          example: 1000
+        taxPayer:
+          type: object
+          description: Les informations de l'usager
+          properties:
+            id:
+              type: string
+              description: L'identifiant unique (ID) de l'usager
+              example: 45678HH
+            name:
+              type: string
+              description: Le nom de famille de l'usager
+              example: XXXXX
+            firstName:
+              type: string
+              description: Le prenom de l'usager
+              example: XXXXX
+            nif:
+              type: string
+              description: La pièce d'identité de l'usager (optionnel) - Carte d'identité, Passeport, Carte Biométrique etc ...
+              example: XXXXX
+            companyName:
+              type: string
+              description: La raison sociale de l'usager (optionnel) dans le cas des entreprises
+              example: XXXXX
+            address:
+              type: string
+              description: L'adresse de l'usager (optionnel)
+              example: XXXXX
+            phoneNumber:
+              type: string
+              description: Le numéro de téléphone de l'usager (Obligatoire) pour des eventuelles notifications
+              example: +223XXXXX
+            email:
+              type: string
+              description: Le mail de l'usager (optionnel) pour des eventuelles notifications
+              example: xxxxx@xxx.xx
+        items:
+          type: array
+          description: Le mail de l'usager (optionnel) pour des eventuelles notifications
+          items:
+            properties:
+              name:
+                type: string
+                description: le nom de la redévance à payer
+                example: Carte biométrique
+              quantity:
+                type: int
+                description: le nom de la redévance à payer
+              unitPrice:
+                type: number
+                example: 1000.0
+                description: le nom de la redévance à payer
+              description:
+                type: string
+                description: La description de la rédevance
+                example: Carte biométrique
+              codeNatureRecette:
+                type: string
+                description: Le code de la nature de recette dans la nomenclature budgetaire
+                example: 71531
+      xml:
+        name: order
+      type: object
+    ResponseNoticeRecette:
+      x-swagger-router-model: io.swagger.noticercette.model.ResponseNoticeRecette
+      properties:
+        reference:
+          type: string
+          description: La reference de l'avis de recette généré depuis TRESORPAY
+          example: TP20241231.1048.AR3
+        status:
+          type: string
+          description: Le status de l'émission d'avis de recette
+          enum:
+            - EMITTED
+            - PAID
+            - CANCELED
+          example: EMITTED
+    Error404NoticeRecette:
+      x-swagger-router-model: io.swagger.noticercette.model.ResponseNoticeRecette
+      properties:
+        reference:
+          type: string
+          description: La reference de l'avis de recette généré depuis TRESORPAY
+          example: TP20241231.1048.AR3

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instance-profile
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
+
+<instance-profile id="adoc"
+                 name="API Docs TresorPay"
+                 start-page="api-docs.md">
+    <toc-element topic="api-docs.md"/>
+    <toc-element topic="API-quickstart.md"/>
+    <toc-element topic="API-reference.md" toc-title="">
+        <toc-element topic="Create-notice-recette.md">
+
+        </toc-element>
+        <toc-element topic="Check-notice-recette-status.md">
+
+        </toc-element>
+        <toc-element topic="Cancel-notice-recette.md">
+
+        </toc-element>
+
+    </toc-element>
+</instance-profile>
