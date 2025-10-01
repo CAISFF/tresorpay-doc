@@ -39,7 +39,7 @@ Voici les étapes pour obtenir un **token d'accès** en utilisant le **client_id
         </code-block>
     </tab>
     <tab id="postman" title="Postman">
-        <img src="postman_api.png" alt="Image API auth postman" width="2000" height="auto"/>
+        <img src="postman_api.png" alt="Image API auth postman" width="2000"/>
     </tab>
 </tabs>
 
